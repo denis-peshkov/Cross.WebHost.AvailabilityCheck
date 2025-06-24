@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{3AF739CD-81D8-428D-A08A-0A58372DEBF6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		ReleaseNotes.txt = ReleaseNotes.txt
+		GitVersion.yml = GitVersion.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3EBFC25E-DB45-497A-BCD5-855A3222E3C0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.WebHost.AvailabilityCheck", "Cross.WebHost.AvailabilityCheck\Cross.WebHost.AvailabilityCheck.csproj", "{68B37A96-34BB-4EFB-B796-CAF6A5F87D99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.WebHost.AvailabilityCheck.UnitTests", "Cross.WebHost.AvailabilityCheck.UnitTests\Cross.WebHost.AvailabilityCheck.UnitTests.csproj", "{C4BD680C-46C1-49E2-BDBC-46295BEE3992}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68B37A96-34BB-4EFB-B796-CAF6A5F87D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B37A96-34BB-4EFB-B796-CAF6A5F87D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B37A96-34BB-4EFB-B796-CAF6A5F87D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B37A96-34BB-4EFB-B796-CAF6A5F87D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4BD680C-46C1-49E2-BDBC-46295BEE3992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4BD680C-46C1-49E2-BDBC-46295BEE3992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4BD680C-46C1-49E2-BDBC-46295BEE3992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4BD680C-46C1-49E2-BDBC-46295BEE3992}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25728519-5F0F-4973-8A64-0A81EB4EA8D9}
+	EndGlobalSection
+EndGlobal
