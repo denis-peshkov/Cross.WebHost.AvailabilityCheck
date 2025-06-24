@@ -1,0 +1,102 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - hotfix/*
+      - release/*
+      - feature/*
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    env:
+      BUILD_CONFIG: 'Release'
+      SOLUTION: 'Cross.WebHost.AvailabilityCheck.sln'
+
+    runs-on: ubuntu-22.04 # ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2.0.0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: 5.12.0
+
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v1.1.1
+        with:
+          useConfigFile: true
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+
+      - name: Run tests
+        run: dotnet test /p:Configuration=$BUILD_CONFIG --no-restore --no-build --verbosity normal
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarcloud-github-action@v5 # Ex: v4.0.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+        with:
+          #          projectBaseDir: app/
+          #          args: >
+          #            -Dsonar.organization=peshkov
+          #            -Dsonar.projectKey=Cross.WebHost.AvailabilityCheck.EF
+          #            -Dsonar.python.coverage.reportPaths=coverage.xml
+          #            -Dsonar.sources=Cross.WebHost.AvailabilityCheck.EF/
+          #            -Dsonar.tests=tests/
+          #            -Dsonar.test.exclusions=tests/**
+          #            -Dsonar.verbose=true
+          args: >
+            -Dsonar.organization=peshkov
+            -Dsonar.projectKey=Cross.WebHost.AvailabilityCheck
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=Cross.WebHost.AvailabilityCheck/
+            -Dsonar.verbose=true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Nuget Pack
+        run: nuget pack config.nuspec -Symbols -Version ${{ env.semVer }}
+
+      - name: ref
+        run: echo "github.head_ref 1 ${{ github.head_ref }} 2 $GITHUB_REF 3 ${{ github.ref }}"
+
+      - name: Create git Tag
+        if: ${{ contains('refs/heads/hotfix', github.ref) || contains('refs/heads/hotfix', github.ref) || contains('refs/heads/master', github.ref) }}
+        run: |
+          git tag v${{ env.semVer }}
+
+      - name: Push git Tag
+        if: ${{ contains(fromJson('["refs/heads/master", "refs/heads/release", "refs/heads/hotfix"]'), github.ref) }}
+        run: |
+          git config --global user.name 'Denis Peshkov'
+          git config --global user.email 'denis.peshkov@outlook.com'
+          git remote set-url origin https://x-access-token:${{ secrets.TAGTOKEN }}@github.com/${{ github.repository }}
+          git push origin v${{ env.semVer }}
+
+      - name: Nuget Push
+        if: ${{ !startsWith(github.ref, 'refs/pull') }}
+        run: nuget push **/Cross.WebHost.AvailabilityCheck.${{ env.semVer }}.symbols.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source "https://api.nuget.org/v3/index.json" -SkipDuplicate
