@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
@@ -17,22 +17,22 @@
   </Target>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <MicrosoftExtConfigurationVersion>8.0.2</MicrosoftExtConfigurationVersion>
-    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.2</MicrosoftExtConfigurationEnvironmentVariablesVersion>
-    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.2</MicrosoftExtConfigurationFileExtensionsVersion>
-    <MicrosoftExtConfigurationJsonVersion>8.0.2</MicrosoftExtConfigurationJsonVersion>
+    <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.0</MicrosoftExtConfigurationEnvironmentVariablesVersion>
+    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.1</MicrosoftExtConfigurationFileExtensionsVersion>
+    <MicrosoftExtConfigurationJsonVersion>8.0.1</MicrosoftExtConfigurationJsonVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <MicrosoftExtConfigurationVersion>8.0.2</MicrosoftExtConfigurationVersion>
-    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.2</MicrosoftExtConfigurationEnvironmentVariablesVersion>
-    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.2</MicrosoftExtConfigurationFileExtensionsVersion>
-    <MicrosoftExtConfigurationJsonVersion>8.0.2</MicrosoftExtConfigurationJsonVersion>
+    <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.0</MicrosoftExtConfigurationEnvironmentVariablesVersion>
+    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.1</MicrosoftExtConfigurationFileExtensionsVersion>
+    <MicrosoftExtConfigurationJsonVersion>8.0.1</MicrosoftExtConfigurationJsonVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-    <MicrosoftExtConfigurationVersion>8.0.2</MicrosoftExtConfigurationVersion>
-    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.2</MicrosoftExtConfigurationEnvironmentVariablesVersion>
-    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.2</MicrosoftExtConfigurationFileExtensionsVersion>
-    <MicrosoftExtConfigurationJsonVersion>8.0.2</MicrosoftExtConfigurationJsonVersion>
+    <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationEnvironmentVariablesVersion>8.0.0</MicrosoftExtConfigurationEnvironmentVariablesVersion>
+    <MicrosoftExtConfigurationFileExtensionsVersion>8.0.1</MicrosoftExtConfigurationFileExtensionsVersion>
+    <MicrosoftExtConfigurationJsonVersion>8.0.1</MicrosoftExtConfigurationJsonVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <MicrosoftExtConfigurationVersion>9.0.14</MicrosoftExtConfigurationVersion>
@@ -52,9 +52,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="$(MicrosoftExtConfigurationEnvironmentVariablesVersion)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="$(MicrosoftExtConfigurationFileExtensionsVersion)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtConfigurationJsonVersion)" />
-  </ItemGroup>
 
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />

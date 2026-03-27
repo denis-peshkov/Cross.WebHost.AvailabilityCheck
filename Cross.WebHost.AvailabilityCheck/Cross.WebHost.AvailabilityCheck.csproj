@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
@@ -18,27 +18,33 @@
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationBinderVersion>8.0.2</MicrosoftExtConfigurationBinderVersion>
     <MicrosoftExtensionsLoggingVersion>8.0.1</MicrosoftExtensionsLoggingVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationBinderVersion>8.0.2</MicrosoftExtConfigurationBinderVersion>
     <MicrosoftExtensionsLoggingVersion>8.0.1</MicrosoftExtensionsLoggingVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <MicrosoftExtConfigurationVersion>8.0.0</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationBinderVersion>8.0.2</MicrosoftExtConfigurationBinderVersion>
     <MicrosoftExtensionsLoggingVersion>8.0.1</MicrosoftExtensionsLoggingVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <MicrosoftExtConfigurationVersion>9.0.14</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationBinderVersion>9.0.14</MicrosoftExtConfigurationBinderVersion>
     <MicrosoftExtensionsLoggingVersion>9.0.14</MicrosoftExtensionsLoggingVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
     <MicrosoftExtConfigurationVersion>10.0.5</MicrosoftExtConfigurationVersion>
+    <MicrosoftExtConfigurationBinderVersion>10.0.5</MicrosoftExtConfigurationBinderVersion>
     <MicrosoftExtensionsLoggingVersion>10.0.5</MicrosoftExtensionsLoggingVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtConfigurationVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="$(MicrosoftExtConfigurationBinderVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsLoggingVersion)" />
 
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
