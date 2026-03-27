@@ -102,7 +102,7 @@ public class AvailabilityHostsConfigurationTests : TestsBase
             .Build();
 
         // Act
-        AvailabilityHostsConfiguration.ConfigureAvailabilityHosts(hosts, configuration, _loggerMock.Object, timeoutInMs: 10, maxAttempt: 2);
+        AvailabilityHostsConfiguration.ConfigureAvailabilityHosts(hosts, configuration, _loggerMock.Object, timeoutInMs: 10, maxAttempts: 2);
 
         // Assert
         _loggerMock.Verify(

@@ -17,6 +17,8 @@
 
 A lightweight .NET library for validating microservice dependencies during application startup. The library ensures that all required services are available before the main application begins its operation.
 
+**Supported frameworks:** .NET 6, .NET 7, .NET 8, .NET 9, .NET 10
+
 
 ## Features
 - Asynchronous health checks for HTTP/HTTPS endpoints
@@ -32,14 +34,14 @@ Designed to prevent application startup failures due to unavailable dependencies
 
 ## Install NuGet package
 
-Install the _ross.WebHost.AvailabilityCheck_ [NuGet package](https://www.nuget.org/packages/ross.WebHost.AvailabilityCheck/) into your ASP.NET Core project:
+Install the _Cross.WebHost.AvailabilityCheck_ [NuGet package](https://www.nuget.org/packages/Cross.WebHost.AvailabilityCheck/) into your ASP.NET Core project:
 
 ```powershell
-Install-Package ross.WebHost.AvailabilityCheck
+Install-Package Cross.WebHost.AvailabilityCheck
 ```
 or
 ```bash
-dotnet add package ross.WebHost.AvailabilityCheck
+dotnet add package Cross.WebHost.AvailabilityCheck
 ```
 
 
@@ -103,7 +105,7 @@ The library supports various URL formats:
 - HTTP URLs: `http://service-name:80`
 - HTTPS URLs: `https://service-name:443`
 - HTTP Default ports: `http://service-name` (assumes port 80)
-- HTTPS Default ports: `http://service-name` (assumes port 443)
+- HTTPS Default ports: `https://service-name` (assumes port 443)
 - Custom ports: `service-name:5000`
 - IP addresses: `192.168.1.100:5000`
 
@@ -121,6 +123,24 @@ The library uses standard .NET logging mechanisms. Configure logging level in yo
     }
   }
 }
+```
+
+
+## Testing
+
+Run unit tests:
+
+```bash
+dotnet test Cross.WebHost.AvailabilityCheck.Tests/Cross.WebHost.AvailabilityCheck.Tests.csproj
+```
+
+Run unit tests with OpenCover coverage:
+
+```bash
+dotnet test Cross.WebHost.AvailabilityCheck.Tests/Cross.WebHost.AvailabilityCheck.Tests.csproj \
+ --collect:"XPlat Code Coverage" \
+ --results-directory ./TestResults \
+ -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 ```
 
 

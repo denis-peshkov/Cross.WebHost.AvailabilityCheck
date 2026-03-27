@@ -13,7 +13,10 @@
     <readme>docs\README.md</readme>
     <icon>icon.png</icon>
     <releaseNotes>
-      Initial version.
+      - Added multi-target support: net6.0, net7.0, net8.0, net9.0, net10.0.
+      - Aligned package dependencies by target framework in project files and nuspec.
+      - Migrated tests to Cross.WebHost.AvailabilityCheck.Tests and expanded test coverage for host parsing and availability checks.
+      - Added framework-specific package content to nuspec (lib/net6.0 ... lib/net10.0).
     </releaseNotes>
     <description>
       A lightweight .NET library for validating microservice dependencies during application startup. The library ensures that all required services are available before the main application begins its operation.

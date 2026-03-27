@@ -22,7 +22,7 @@ public static class AvailabilityHostsConfiguration
     /// <param name="configuration">The application configuration containing service URLs.</param>
     /// <param name="logger">Logger instance for recording availability check results.</param>
     /// <param name="timeoutInMs">Timeout in milliseconds for each check attempt. Default is 1000 ms.</param>
-    /// <param name="maxAttempt">Maximum number of retry attempts for each host. Default is 50 times.</param>
+    /// <param name="maxAttempts">Maximum number of retry attempts for each host. Default is 50 times.</param>
     /// <exception cref="ArgumentNullException">Thrown when any of the required parameters is null.</exception>
     /// <remarks>
     /// Supports various URL formats including:
@@ -35,7 +35,7 @@ public static class AvailabilityHostsConfiguration
     ///   <item><description>IP addresses: 192.168.1.100:5000</description></item>
     /// </list>
     /// </remarks>
-    public static void ConfigureAvailabilityHosts(string[] configuredHosts, IConfiguration configuration, ILogger logger, int timeoutInMs = 1000, int maxAttempt = 50)
+    public static void ConfigureAvailabilityHosts(string[] configuredHosts, IConfiguration configuration, ILogger logger, int timeoutInMs = 1000, int maxAttempts = 50)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(configuredHosts);
@@ -48,7 +48,7 @@ public static class AvailabilityHostsConfiguration
         if (validHosts.Length == 0) return;
 
         logger.LogInformation("Checking the launch of the necessary microservices...");
-        CheckHostsAsync(validHosts, logger, timeoutInMs, maxAttempt).GetAwaiter().GetResult();
+        CheckHostsAsync(validHosts, logger, timeoutInMs, maxAttempts).GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -68,14 +68,14 @@ public static class AvailabilityHostsConfiguration
     /// <param name="hostStrings">Collection of host strings to check.</param>
     /// <param name="logger">Logger instance for recording check results.</param>
     /// <param name="timeoutInMs">Timeout in milliseconds for each check attempt.</param>
-    /// <param name="maxAttempt">Maximum number of retry attempts.</param>
+    /// <param name="maxAttempts">Maximum number of retry attempts.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     private static async Task CheckHostsAsync(
         IEnumerable<string> hostStrings,
         ILogger logger,
         int timeoutInMs = 1000,
-        int maxAttempt = 50,
+        int maxAttempts = 50,
         CancellationToken cancellationToken = default)
     {
         var validHosts = hostStrings
@@ -84,7 +84,7 @@ public static class AvailabilityHostsConfiguration
             .ToList();
 
         var tasks = validHosts
-            .Select(host => CheckHostAvailabilityAsync(host!, logger, timeoutInMs, maxAttempt, cancellationToken));
+            .Select(host => CheckHostAvailabilityAsync(host!, logger, timeoutInMs, maxAttempts, cancellationToken));
 
         await Task.WhenAll(tasks);
     }
@@ -141,7 +141,7 @@ public static class AvailabilityHostsConfiguration
     /// <param name="host">The host to check.</param>
     /// <param name="logger">Logger instance for recording check results.</param>
     /// <param name="timeoutInMs">Timeout in milliseconds for each attempt.</param>
-    /// <param name="maxAttempt">Maximum number of retry attempts.</param>
+    /// <param name="maxAttempts">Maximum number of retry attempts.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
@@ -149,13 +149,13 @@ public static class AvailabilityHostsConfiguration
         Host host,
         ILogger logger,
         int timeoutInMs,
-        int maxAttempt,
+        int maxAttempts,
         CancellationToken cancellationToken = default)
     {
         var sw = Stopwatch.StartNew();
         var timeout = TimeSpan.FromMilliseconds(timeoutInMs);
 
-        for (var attempt = 1; attempt <= maxAttempt; attempt++)
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
             try
             {
@@ -175,16 +175,16 @@ public static class AvailabilityHostsConfiguration
                 if (cancellationToken.IsCancellationRequested)
                     throw new OperationCanceledException("Host availability check was cancelled", ex, cancellationToken);
 
-                if (attempt == maxAttempt)
+                if (attempt == maxAttempts)
                 {
                     logger.LogError(ex, "Host '{HostName}:{Port}' is down after {Attempts} attempts",
-                        host.Hostname, host.Port, maxAttempt);
+                        host.Hostname, host.Port, maxAttempts);
                     return;
                 }
 
                 logger.LogInformation(
                     "Attempt {CurrentAttempt}/{MaxAttempts}. Host '{HostName}:{Port}' not available yet: {Message}",
-                    attempt, maxAttempt, host.Hostname, host.Port, ex.Message);
+                    attempt, maxAttempts, host.Hostname, host.Port, ex.Message);
 
                 await Task.Delay(timeoutInMs, cancellationToken);
             }
