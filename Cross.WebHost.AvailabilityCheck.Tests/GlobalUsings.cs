@@ -21,7 +21,7 @@ global using Bogus;
 global using Bogus.Extensions;
 global using Bogus.Extensions.Extras;
 global using Bogus.Extensions.UnitedStates;
-global using Cross.WebHost.AvailabilityCheck.UnitTests.Common;
+global using Cross.WebHost.AvailabilityCheck.Tests.Common;
 global using FluentAssertions;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;

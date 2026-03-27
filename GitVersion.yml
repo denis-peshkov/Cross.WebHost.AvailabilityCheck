@@ -4,12 +4,12 @@ branches:
     regex: ^master$|^main$
     mode: ContinuousDelivery
     tag: ''
-    increment: Inherit
     source-branches:
       - feature
       - hotfix
       - release
-    prevent-increment-of-merged-branch-version: false
+    increment: Inherit
+    prevent-increment-of-merged-branch-version: true
     track-merge-target: true
     tracks-release-branches: true
     is-release-branch: true
@@ -19,11 +19,11 @@ branches:
     mode: ContinuousDelivery
     tag: preview
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
-    increment: Minor
     source-branches:
       - master
       - dev
       - release
+    increment: Minor
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true
@@ -34,8 +34,8 @@ branches:
     mode: ContinuousDelivery
     tag: preview
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
-    increment: Patch
     source-branches: [ master, hotfix ]
+    increment: Patch
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true
@@ -55,7 +55,6 @@ branches:
     mode: ContinuousDelivery
     tag: pr
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
-    increment: None
     source-branches:
       - dev
       - master
@@ -63,6 +62,7 @@ branches:
       - feature
       - support
       - hotfix
+    increment: None
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     tracks-release-branches: false
@@ -71,8 +71,8 @@ branches:
     regex: ^dev(elop)?(ment)?$
     mode: ContinuousDeployment
     tag: dev
-    increment: Minor
     source-branches: [ master ]
+    increment: Minor
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     tracks-release-branches: true

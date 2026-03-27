@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/.github/">
+    <File Path=".github/workflows/dotnet.yml" />
+  </Folder>
+  <Folder Name="/assets/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="GitVersion.yml" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="ReleaseNotes.txt" />
+  </Folder>
+  <Project Path="Cross.WebHost.AvailabilityCheck.Tests/Cross.WebHost.AvailabilityCheck.Tests.csproj" />
+  <Project Path="Cross.WebHost.AvailabilityCheck/Cross.WebHost.AvailabilityCheck.csproj" />
+</Solution>

@@ -1,4 +1,17 @@
-[![Nuget](https://img.shields.io/nuget/v/Cross.WebHost.AvailabilityCheck.svg)](https://nuget.org/packages/Cross.WebHost.AvailabilityCheck/) [![Documentation](https://img.shields.io/badge/docs-wiki-yellow.svg)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/wiki)
+[![License](https://img.shields.io/github/license/denis-peshkov/Cross.WebHost.AvailabilityCheck)](LICENSE)
+[![GitHub Release Date](https://img.shields.io/github/release-date/denis-peshkov/Cross.WebHost.AvailabilityCheck?label=released)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/releases)
+[![NuGetVersion](https://img.shields.io/nuget/v/Cross.WebHost.AvailabilityCheck.svg)](https://nuget.org/packages/Cross.WebHost.AvailabilityCheck/)
+[![NugetDownloads](https://img.shields.io/nuget/dt/Cross.WebHost.AvailabilityCheck.svg)](https://nuget.org/packages/Cross.WebHost.AvailabilityCheck/)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Cross.WebHost.AvailabilityCheck&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Cross.WebHost.AvailabilityCheck)
+[![issues](https://img.shields.io/github/issues/denis-peshkov/Cross.WebHost.AvailabilityCheck)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/issues)
+[![.NET PR](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/actions/workflows/dotnet.yml/badge.svg?event=pull_request)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/actions/workflows/dotnet.yml)
+
+![Size](https://img.shields.io/github/repo-size/denis-peshkov/Cross.WebHost.AvailabilityCheck)
+[![GitHub contributors](https://img.shields.io/github/contributors/denis-peshkov/Cross.WebHost.AvailabilityCheck)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/contributors)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/denis-peshkov/Cross.WebHost.AvailabilityCheck/latest?label=new+commits)](https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/commits/master)
+![Activity](https://img.shields.io/github/commit-activity/w/denis-peshkov/Cross.WebHost.AvailabilityCheck)
+![Activity](https://img.shields.io/github/commit-activity/m/denis-peshkov/Cross.WebHost.AvailabilityCheck)
+![Activity](https://img.shields.io/github/commit-activity/y/denis-peshkov/Cross.WebHost.AvailabilityCheck)
 
 # Cross.WebHost.AvailabilityCheck
 
@@ -17,22 +30,16 @@ A lightweight .NET library for validating microservice dependencies during appli
 Designed to prevent application startup failures due to unavailable dependencies by implementing a readiness probe pattern for microservice environments.
 
 
-## Install with nuget.org:
+## Install NuGet package
 
-https://www.nuget.org/packages/Cross.WebHost.AvailabilityCheck
-
-
-## Installation
-
-Install via NuGet Package Manager:
-```bash
-dotnet add package Cross.WebHost.AvailabilityCheck
-```
-
-Or via Package Manager Console:
+Install the _ross.WebHost.AvailabilityCheck_ [NuGet package](https://www.nuget.org/packages/ross.WebHost.AvailabilityCheck/) into your ASP.NET Core project:
 
 ```powershell
-Install-Package Cross.WebHost.AvailabilityCheck
+Install-Package ross.WebHost.AvailabilityCheck
+```
+or
+```bash
+dotnet add package ross.WebHost.AvailabilityCheck
 ```
 
 
@@ -75,6 +82,7 @@ public class Program
     }
 }
 ```
+
 
 ### Configuration in appsettings.json
 

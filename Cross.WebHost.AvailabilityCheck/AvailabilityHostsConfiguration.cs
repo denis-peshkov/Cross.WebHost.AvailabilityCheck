@@ -1,9 +1,9 @@
-﻿using System.Runtime.CompilerServices;
+﻿namespace Cross.WebHost.AvailabilityCheck;
 
-[assembly: InternalsVisibleTo("Cross.WebHost.AvailabilityCheck.UnitTests")]
-
-namespace Cross.WebHost.AvailabilityCheck;
-
+/// <summary>
+/// Provides functionality for validating microservice dependencies during application startup.
+/// Ensures that all required services are available before the main application begins its operation.
+/// </summary>
 public static class AvailabilityHostsConfiguration
 {
     private const string PORT_SEPARATOR = ":";
@@ -15,6 +15,26 @@ public static class AvailabilityHostsConfiguration
         [HTTPS_PREFIX] = 443,
     };
 
+    /// <summary>
+    /// Configures and performs availability checks for the specified service hosts.
+    /// </summary>
+    /// <param name="configuredHosts">Array of configuration keys pointing to service URLs to check.</param>
+    /// <param name="configuration">The application configuration containing service URLs.</param>
+    /// <param name="logger">Logger instance for recording availability check results.</param>
+    /// <param name="timeoutInMs">Timeout in milliseconds for each check attempt. Default is 1000 ms.</param>
+    /// <param name="maxAttempt">Maximum number of retry attempts for each host. Default is 50 times.</param>
+    /// <exception cref="ArgumentNullException">Thrown when any of the required parameters is null.</exception>
+    /// <remarks>
+    /// Supports various URL formats including:
+    /// <list type="bullet">
+    ///   <item><description>HTTP URLs: http://service-name:80</description></item>
+    ///   <item><description>HTTPS URLs: https://service-name:443</description></item>
+    ///   <item><description>Default ports: http://service-name (assumes port 80)</description></item>
+    ///   <item><description>Default ports: https://service-name (assumes port 443)</description></item>
+    ///   <item><description>Custom ports: service-name:5000</description></item>
+    ///   <item><description>IP addresses: 192.168.1.100:5000</description></item>
+    /// </list>
+    /// </remarks>
     public static void ConfigureAvailabilityHosts(string[] configuredHosts, IConfiguration configuration, ILogger logger, int timeoutInMs = 1000, int maxAttempt = 50)
     {
         ArgumentNullException.ThrowIfNull(configuration);
@@ -31,11 +51,26 @@ public static class AvailabilityHostsConfiguration
         CheckHostsAsync(validHosts, logger, timeoutInMs, maxAttempt).GetAwaiter().GetResult();
     }
 
+    /// <summary>
+    /// Extracts values from the configuration for the specified keys.
+    /// </summary>
+    /// <param name="configuration">The configuration to read from.</param>
+    /// <param name="keys">List of configuration keys to retrieve values for.</param>
+    /// <returns>Collection of configuration values.</returns>
     private static IEnumerable<string> GetValues(this IConfiguration configuration, IReadOnlyList<string> keys)
     {
         return keys.Select(key => configuration.GetValue<string>(key)!);
     }
 
+    /// <summary>
+    /// Asynchronously checks the availability of multiple hosts.
+    /// </summary>
+    /// <param name="hostStrings">Collection of host strings to check.</param>
+    /// <param name="logger">Logger instance for recording check results.</param>
+    /// <param name="timeoutInMs">Timeout in milliseconds for each check attempt.</param>
+    /// <param name="maxAttempt">Maximum number of retry attempts.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     private static async Task CheckHostsAsync(
         IEnumerable<string> hostStrings,
         ILogger logger,
@@ -48,12 +83,26 @@ public static class AvailabilityHostsConfiguration
             .Where(host => host != null)
             .ToList();
 
-        var tasks = validHosts.Select(host =>
-            CheckHostAvailabilityAsync(host!, logger, timeoutInMs, maxAttempt, cancellationToken));
+        var tasks = validHosts
+            .Select(host => CheckHostAvailabilityAsync(host!, logger, timeoutInMs, maxAttempt, cancellationToken));
 
         await Task.WhenAll(tasks);
     }
 
+    /// <summary>
+    /// Parses a host string into a structured Host object.
+    /// </summary>
+    /// <param name="hostString">The host string to parse.</param>
+    /// <param name="logger">Logger instance for recording parsing results.</param>
+    /// <returns>A Host object if parsing is successful; null otherwise.</returns>
+    /// <remarks>
+    /// Supports parsing of:
+    /// <list type="bullet">
+    ///   <item><description>HTTP/HTTPS URLs with optional ports</description></item>
+    ///   <item><description>Hostname with explicit port</description></item>
+    ///   <item><description>IP addresses with port</description></item>
+    /// </list>
+    /// </remarks>
     private static Host? ParseHost(string hostString, ILogger logger)
     {
         logger.LogInformation("Processing host: {Host}", hostString);
@@ -86,7 +135,16 @@ public static class AvailabilityHostsConfiguration
         return null;
     }
 
-
+    /// <summary>
+    /// Checks the availability of a single host with the retry mechanism.
+    /// </summary>
+    /// <param name="host">The host to check.</param>
+    /// <param name="logger">Logger instance for recording check results.</param>
+    /// <param name="timeoutInMs">Timeout in milliseconds for each attempt.</param>
+    /// <param name="maxAttempt">Maximum number of retry attempts.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
     private static async Task CheckHostAvailabilityAsync(
         Host host,
         ILogger logger,
@@ -133,5 +191,10 @@ public static class AvailabilityHostsConfiguration
         }
     }
 
+    /// <summary>
+    /// Represents a host configuration with hostname and port.
+    /// </summary>
+    /// <param name="Hostname">The hostname or IP address of the service.</param>
+    /// <param name="Port">The port number the service is listening on.</param>
     internal sealed record Host(string Hostname, int Port);
 }
