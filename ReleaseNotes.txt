@@ -1,2 +1,12 @@
-1.0.0 - 24 June 2025
-Initial version.
+Release Notes - Cross.WebHost.AvailabilityCheck
+
+https://github.com/denis-peshkov/Cross.WebHost.AvailabilityCheck/releases
+
+v1.0.0 - 24 June 2025
+- Initial version.
+
+v1.1.0 - 27 Mar 2026
+- Added multi-target support: net6.0, net7.0, net8.0, net9.0, net10.0.
+- Aligned package dependencies by target framework in project files and nuspec.
+- Migrated tests to Cross.WebHost.AvailabilityCheck.Tests and expanded test coverage for host parsing and availability checks.
+- Added framework-specific package content to nuspec (lib/net6.0 ... lib/net10.0).

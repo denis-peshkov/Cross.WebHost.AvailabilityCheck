@@ -1,4 +1,4 @@
-﻿namespace Cross.WebHost.AvailabilityCheck.UnitTests.Common;
+﻿namespace Cross.WebHost.AvailabilityCheck.Tests.Common;
 
 [TestFixture]
 public abstract class TestsBase

@@ -13,7 +13,10 @@
     <readme>docs\README.md</readme>
     <icon>icon.png</icon>
     <releaseNotes>
-      Initial version.
+      - Added multi-target support: net6.0, net7.0, net8.0, net9.0, net10.0.
+      - Aligned package dependencies by target framework in project files and nuspec.
+      - Migrated tests to Cross.WebHost.AvailabilityCheck.Tests and expanded test coverage for host parsing and availability checks.
+      - Added framework-specific package content to nuspec (lib/net6.0 ... lib/net10.0).
     </releaseNotes>
     <description>
       A lightweight .NET library for validating microservice dependencies during application startup. The library ensures that all required services are available before the main application begins its operation.
@@ -30,13 +33,39 @@
     </description>
     <tags>.NET dotnet microservices health-check availability-check http-client service-validation startup-check readiness-probe health-monitoring service-discovery microservice-architecture system-health web-services</tags>
     <dependencies>
-      <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
-      <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" />
-      <dependency id="Microsoft.Extensions.Logging" version="8.0.0" />
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.1" />
+      </group>
+      <group targetFramework="net7.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.1" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.1" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="9.0.14" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="9.0.14" />
+        <dependency id="Microsoft.Extensions.Logging" version="9.0.14" />
+      </group>
+      <group targetFramework="net10.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="10.0.5" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="10.0.5" />
+        <dependency id="Microsoft.Extensions.Logging" version="10.0.5" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net8.0\Cross.WebHost.AvailabilityCheck*.* " target="lib\net8.0" />
+    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net6.0\Cross.WebHost.AvailabilityCheck*.*" target="lib\net6.0" />
+    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net7.0\Cross.WebHost.AvailabilityCheck*.*" target="lib\net7.0" />
+    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net8.0\Cross.WebHost.AvailabilityCheck*.*" target="lib\net8.0" />
+    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net9.0\Cross.WebHost.AvailabilityCheck*.*" target="lib\net9.0" />
+    <file src="..\Cross.WebHost.AvailabilityCheck\bin\Release\net10.0\Cross.WebHost.AvailabilityCheck*.*" target="lib\net10.0" />
     <file src="..\README.md" target="docs\" />
     <file src="..\icon.png" target="" />
   </files>
